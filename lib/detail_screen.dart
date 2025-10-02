@@ -100,7 +100,7 @@ class DetailScreen extends StatelessWidget {
                 onPressed: () => _launchURL(movie.movieUrl),
                 icon: const Icon(Icons.open_in_new),
                 label: const Text(
-                  "Link Wikipedia",
+                  "Buka Wikipedia",
                   style: TextStyle(fontSize: 16),
                 ),
               ),
