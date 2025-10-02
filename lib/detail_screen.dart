@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'movie_data.dart';
+/*import 'package:url_launcher/url_launcher.dart';*/
+import 'food.dart';
 
 class DetailScreen extends StatelessWidget {
-  final MovieModel movie;
-  const DetailScreen({super.key, required this.movie});
+  final FoodMenu food;
+  const DetailScreen({super.key, required this.food});
 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(movie.name),
+        title: Text(food.name),
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
         centerTitle: true,
@@ -24,7 +25,7 @@ class DetailScreen extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.network(
-                movie.imgUrl.isNotEmpty ? movie.imgUrl : "",
+                food.imageUrls.isNotEmpty ? food.imageUrls[0] : "",
                 height: 200,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -33,60 +34,87 @@ class DetailScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
+            
+            // Thumbnail carousel kecil
+            if (food.imageUrls.length > 1)
+              SizedBox(
+                height: 80,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: food.imageUrls.length,
+                  separatorBuilder: (_, __) => const SizedBox(width: 8),
+                  itemBuilder: (context, index) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                        food.imageUrls[index],
+                        width: 120,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stack) =>
+                            const Icon(Icons.broken_image, size: 40),
+                      ),
+                    );
+                  },
+                ),
+              ),
 
             // Judul & genre
             Text(
-              movie.name,
+              food.name,
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              movie.genre,
+              food.price,
               style: const TextStyle(
+                fontSize: 15,
+                color: Colors.blue
+              ),
+            ),
+            Text(
+              food.category,
+              style: 
+              const TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
+                
               ),
             ),
             const Divider(height: 32),
+            
 
             // Spesifikasi
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Aktris: ${movie.casts.join(', ')}",
+                  "Deskripsi :"
+                ),
+
+                Text(
+                  "${food.description}",
                   softWrap: true,
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "Sutradara: ${movie.director}",
+                  "Bahan-bahan :"
+                ),
+                Text(
+                  "${food.ingredients}",
+                  softWrap: true,
+                ),
+                Text(
+                  "Waktu Masak: ${food.cookingTime}",
                   softWrap: true,
                 ),
               ],
             ),
 
-            const SizedBox(height: 12),
-            Row(
-              children: [
-                const Icon(Icons.star, color: Colors.amber, size: 20),
-                const SizedBox(width: 4),
-                Text(
-                  "Rating: ${movie.rating}",
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.indigo,
-                  ),
-                ),
-              ],
-            ),
-
-            const Divider(height: 32),
 
             // Tombol Wikipedia
-            Center(
+           /* Center(
               child: TextButton.icon(
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.indigo,
@@ -104,14 +132,14 @@ class DetailScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 16),
                 ),
               ),
-            ),
+            ), */
           ],
         ),
       ),
     );
   }
 
-  Future<void> _launchURL(String url) async {
+ /* Future<void> _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(
       uri,
@@ -119,5 +147,5 @@ class DetailScreen extends StatelessWidget {
     )) {
       throw Exception('Could not launch $url');
     }
-  }
+  } */
 }

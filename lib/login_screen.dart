@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.movie  ,
+                    const Icon(Icons.food_bank  ,
                         size: 80, color: Colors.indigo),
                     const SizedBox(height: 16),
                     TextField(

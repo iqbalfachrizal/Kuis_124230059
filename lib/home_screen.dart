@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'movie_data.dart';
+import 'food.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Daftar Film"),
+        title: const Text("Daftar Makanan"),
         actions: [
           IconButton(
             tooltip: "Logout",
@@ -42,9 +42,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           Expanded(
             child: ListView.builder(
-              itemCount: movieList.length,
+              itemCount: foodMenuList.length,
               itemBuilder: (context, index) {
-                final v = movieList[index];
+                final v = foodMenuList[index];
                 final isSaved = savedMovies.contains(index);
 
                 return Card(
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.network(
-                        v.imgUrl.isNotEmpty ? v.imgUrl : "",
+                        v.imageUrls.isNotEmpty ? v.imageUrls[0] : "",
                         width: 60,
                         height: 60,
                         fit: BoxFit.cover,
@@ -63,18 +63,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     title: Text(
-                      "${v.name} (${v.year})",
+                      "${v.name}",
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(v.genre),
+                        Text(v.category),
                         Row(
                           children: [
-                            const Icon(Icons.star, size: 16, color: Colors.orange),
+                            const Icon(Icons.money, size: 16, color: Colors.orange),
                             const SizedBox(width: 4),
-                            Text("Rating: ${v.rating}/10"),
+                            Text("Harga: ${v.price}"),
                           ],
                         ),
                       ],
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     // 🔑 Tombol Simpan (bookmark)
                     trailing: IconButton(
                       icon: Icon(
-                        isSaved ? Icons.bookmark : Icons.bookmark_border,
+                        isSaved ? Icons.star : Icons.star_border,
                         color: isSaved ? Colors.blue : Colors.black,
                       ),
                       onPressed: () {

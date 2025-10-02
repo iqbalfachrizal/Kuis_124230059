@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'home_screen.dart';
 import 'detail_screen.dart';
-import 'movie_data.dart';
+import 'food.dart';
 
-void main() => runApp(const MovieApp());
+void main() => runApp(const MenuApp());
 
-class MovieApp extends StatelessWidget {
-  const MovieApp({Key? key}) : super(key: key);
+class MenuApp extends StatelessWidget {
+  const MenuApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Movie Gais',
+      title: 'Food APP',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.indigo,
@@ -37,13 +37,13 @@ class MovieApp extends StatelessWidget {
         '/': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
       },
-      // onGenerateRoute untuk passing object Movie ke DetailScreen
+      // onGenerateRoute untuk passing object  ke DetailScreen
       onGenerateRoute: (settings) {
         if (settings.name == '/detail') {
           final args = settings.arguments;
-          if (args is MovieModel) {
+          if (args is FoodMenu) {
             return MaterialPageRoute(
-              builder: (context) => DetailScreen(movie: args),
+              builder: (context) => DetailScreen(food: args),
             );
           }
         }
